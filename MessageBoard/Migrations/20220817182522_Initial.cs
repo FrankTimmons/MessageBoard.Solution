@@ -83,6 +83,25 @@ namespace MessageBoard.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    MessageId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    Body = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Author = table.Column<string>(type: "varchar(115)", maxLength: 115, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DatePosted = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.MessageId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -209,31 +228,6 @@ namespace MessageBoard.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    MessageId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    GroupId = table.Column<int>(type: "int", nullable: false),
-                    Body = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Author = table.Column<string>(type: "varchar(115)", maxLength: 115, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DatePosted = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.MessageId);
-                    table.ForeignKey(
-                        name: "FK_Messages_Groups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "Groups",
-                        principalColumn: "GroupId",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "GroupId", "GroupName" },
@@ -244,10 +238,10 @@ namespace MessageBoard.Migrations
                 columns: new[] { "MessageId", "Author", "Body", "DatePosted", "GroupId" },
                 values: new object[,]
                 {
-                    { 1, "Woolly Mammoth", "Matilda", new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1176), 1 },
-                    { 2, "Dinosaur", "Rexie", new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1228), 1 },
-                    { 3, "Dinosaur", "Matilda", new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1232), 1 },
-                    { 4, "Shark", "Pip", new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1294), 1 },
+                    { 1, "Woolly Mammoth", "Matilda", new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5352), 1 },
+                    { 2, "Dinosaur", "Rexie", new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5407), 1 },
+                    { 3, "Dinosaur", "Matilda", new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5411), 1 },
+                    { 4, "Shark", "Pip", new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5415), 1 },
                     { 5, "Dinosaur", "Bartholomew", new DateTime(2015, 12, 1, 9, 38, 58, 0, DateTimeKind.Unspecified), 1 }
                 });
 
@@ -287,11 +281,6 @@ namespace MessageBoard.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_GroupId",
-                table: "Messages",
-                column: "GroupId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -312,6 +301,9 @@ namespace MessageBoard.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Groups");
+
+            migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
@@ -319,9 +311,6 @@ namespace MessageBoard.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Groups");
         }
     }
 }

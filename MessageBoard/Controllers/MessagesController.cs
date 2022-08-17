@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MessageBoard.Controllers
 {
-  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+  // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [Route("api/[controller]")]
   [ApiController]
   public class MessagesController : ControllerBase
@@ -85,10 +85,10 @@ namespace MessageBoard.Controllers
     // PUT: api/Messages/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutMessage(int id, string user_name, Message message)
+    public async Task<IActionResult> PutMessage(int id, Message message)
     {
 
-      if (id != message.MessageId || message.Author != user_name || user_name == null)
+      if (id != message.MessageId)
       {
         return BadRequest();
       }

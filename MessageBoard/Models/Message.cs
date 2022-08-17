@@ -7,7 +7,6 @@ namespace MessageBoard.Models
   {
     public int MessageId { get; set; }
     public int GroupId { get; set; }
-    public virtual Group Group { get; set; }
 
     [Required]
     [StringLength(250)]

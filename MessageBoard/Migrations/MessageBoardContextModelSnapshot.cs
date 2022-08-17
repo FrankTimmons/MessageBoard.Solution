@@ -65,8 +65,6 @@ namespace MessageBoard.Migrations
 
                     b.HasKey("MessageId");
 
-                    b.HasIndex("GroupId");
-
                     b.ToTable("Messages");
 
                     b.HasData(
@@ -75,7 +73,7 @@ namespace MessageBoard.Migrations
                             MessageId = 1,
                             Author = "Woolly Mammoth",
                             Body = "Matilda",
-                            DatePosted = new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1176),
+                            DatePosted = new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5352),
                             GroupId = 1
                         },
                         new
@@ -83,7 +81,7 @@ namespace MessageBoard.Migrations
                             MessageId = 2,
                             Author = "Dinosaur",
                             Body = "Rexie",
-                            DatePosted = new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1228),
+                            DatePosted = new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5407),
                             GroupId = 1
                         },
                         new
@@ -91,7 +89,7 @@ namespace MessageBoard.Migrations
                             MessageId = 3,
                             Author = "Dinosaur",
                             Body = "Matilda",
-                            DatePosted = new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1232),
+                            DatePosted = new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5411),
                             GroupId = 1
                         },
                         new
@@ -99,7 +97,7 @@ namespace MessageBoard.Migrations
                             MessageId = 4,
                             Author = "Shark",
                             Body = "Pip",
-                            DatePosted = new DateTime(2022, 8, 16, 9, 41, 27, 286, DateTimeKind.Local).AddTicks(1294),
+                            DatePosted = new DateTime(2022, 8, 17, 11, 25, 21, 839, DateTimeKind.Local).AddTicks(5415),
                             GroupId = 1
                         },
                         new
@@ -306,17 +304,6 @@ namespace MessageBoard.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("MessageBoard.Models.Message", b =>
-                {
-                    b.HasOne("MessageBoard.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
