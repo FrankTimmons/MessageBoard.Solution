@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using MessageBoard.Models;
 using System.Text;
 using MessageBoard.Configuration;
+using Microsoft.OpenApi.Models;
 
 namespace MessageBoard
 {
@@ -48,6 +49,10 @@ namespace MessageBoard
           ValidateLifetime = true
         };
       });
+      services.AddControllers();
+
+      services.AddEndpointsApiExplorer();
+      services.AddSwaggerGen();
 
       services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                       .AddEntityFrameworkStores<MessageBoardContext>();
@@ -61,8 +66,14 @@ namespace MessageBoard
     {
       if (env.IsDevelopment())
       {
+       
         app.UseDeveloperExceptionPage();
       }
+
+       app.UseSwagger();  
+       app.UseSwaggerUI(c => {  
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V2");  
+       });  
 
       // app.UseHttpsRedirection();
 
