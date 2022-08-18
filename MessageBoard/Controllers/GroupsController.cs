@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MessageBoard.Controllers
 {
-  // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [Route("api/[controller]")]
   [ApiController]
   public class GroupsController : ControllerBase
@@ -36,6 +36,7 @@ namespace MessageBoard.Controllers
     }
 
     // GET: api/Groups
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Group>>> GetGroups(string name)
     {
@@ -49,6 +50,7 @@ namespace MessageBoard.Controllers
     }
 
     // GET: api/Groups/5
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<ActionResult<Group>> GetGroup(int id)
     {

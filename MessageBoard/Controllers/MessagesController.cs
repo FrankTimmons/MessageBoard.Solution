@@ -23,7 +23,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MessageBoard.Controllers
 {
-  // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [Route("api/[controller]")]
   [ApiController]
   public class MessagesController : ControllerBase
